@@ -19,9 +19,9 @@ class GameState {
         this.capacity = 5;
         this.stars = 0;
         this.deck = [
-            new Array(4).fill("hamster"),
-            new Array(2).fill("fish"),
-            new Array(4).fill("cow"),
+            new Array(4).fill(new Cow()),
+            new Array(2).fill(new Fish()),
+            new Array(4).fill(new Hamster()),
         ].flat();
     }
 }

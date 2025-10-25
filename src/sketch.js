@@ -5,20 +5,17 @@ let screens = {
     "house": new HouseScreen(state)
 }
 
-var bg;
-
 let currentScreen = "house";
 
 function setup() {
     let canvas = document.getElementById("game");
     let width = window.innerWidth;
     let height = window.innerHeight-50;
-    bg = color(200);
     createCanvas(width, height, canvas);
 }
 
 function draw() {
-    background(bg);
+    background(0);
 
     //gameState
     stroke(255);
@@ -59,7 +56,7 @@ function draw() {
     button.mousePressed(addAnimal);
 
     let screen = screens[currentScreen];
-    screen.render();
+    screen.render(padding, padding, width/4*3-(padding), height-(padding*2), padding, roundedRadius);
 }
 
 function changeColor() {
@@ -67,5 +64,5 @@ function changeColor() {
 }
 
 function addAnimal() {
-    state.deck.push("turtle");
+    state.deck.push(new Turtle());
 }

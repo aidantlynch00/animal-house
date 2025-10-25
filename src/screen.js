@@ -5,7 +5,7 @@ class Screen {
         this.state = state;
     }
 
-    render() {}
+    render(x, y, width, height, padding, roundedRadius) {}
     handleAction(action) {}
 }
 
@@ -14,18 +14,35 @@ class HouseScreen extends Screen {
         super(state);
     }
 
-    render() {
-        this.renderHouse();
+    render(x, y, width, height, padding, roundedRadius) {
+        this.renderHouse(x, y, width, height, padding, roundedRadius);
     }
 
-    renderHouse() {
-        noStroke();
-        fill(255);
+    renderHouse(x, y, width, height, padding, roundedRadius) {
+
+        //set up each character's render box which is a proportion of the width and height of the screeen
+        let renderHeight = height/4;
+        let renderWidth = width/9;
+
+        //set up variables
+        let renderX = x;
+        let renderY = y;
         let count = 0;
         for (let animal of state.deck) {
-            text(animal, 55 + (count * 75), 50);
-            text(animals[animal].cuteness, 55+ (count*75), 100);
+            //set boundaries
+            if(renderX >= width) {
+                renderX = x;
+                renderY += renderHeight;
+            }
+
+            //bounding box
+            stroke(255);
+            fill(0);
+            rect(renderX, renderY, renderWidth, renderHeight, roundedRadius);
+
+            animal.render(renderX+padding, renderY+padding);
             count += 1;
+            renderX += renderWidth;
         }
     }
 
