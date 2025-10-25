@@ -20,15 +20,35 @@ class HouseScreen extends Screen {
 
     renderHouse() {
         noStroke();
-        fill(0);
-        rect(50, 25, 800, 480);
-
         fill(255);
         let count = 0;
         for (let animal of state.deck) {
             text(animal, 55 + (count * 75), 50);
+            text(animals[animal].cuteness, 55+ (count*75), 100);
             count += 1;
         }
+    }
+
+    handleAction(action) {
+
+    }
+}
+
+class ShopScreen extends Screen {
+    //the item name
+    //the item ability if there are any
+    //how many are available
+    //how much it costs
+    constructor(state) {
+        super(state);
+    }
+
+    render() {
+        this.renderShop();
+    }
+
+    renderShop() {
+
     }
 
     handleAction(action) {
