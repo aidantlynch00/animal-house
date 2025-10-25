@@ -9,18 +9,27 @@ let currentScreen = "house";
 
 function setup() {
     let canvas = document.getElementById("game");
-    let width = window.innerWidth;
-    let height = window.innerHeight-50;
+    let width = window.innerWidth-50;
+    let height = window.innerHeight;
     createCanvas(width, height, canvas);
 }
 
 function draw() {
     background(0);
 
+    //Title
+    stroke(255);
+    fill(0);
+    rect(padding, padding, width/4*3-(padding), height/6-(padding*2), roundedRadius);
+    fill(255);
+    stroke(0);
+    text("title", padding+10, padding+30);
+    
+
     //gameState
     stroke(255);
     fill(0);
-    rect(padding, padding, width/4*3-(padding), height-(padding*2), roundedRadius);
+    rect(padding, (height/6), width/4*3-(padding), height/6*5-(padding), roundedRadius);
     // fill(255);
     // stroke(0);
     // text("gamestate", padding+10, padding+30);
@@ -52,11 +61,13 @@ function draw() {
 
     //buttons
     let button = createButton("Open Door");
-    button.position(50, window.innerHeight-50);
+    button.position(window.innerWidth-50, 50);
     button.mousePressed(addAnimal);
 
+    //To-do buttons: settings, up, left, right, down, select
+
     let screen = screens[currentScreen];
-    screen.render(padding, padding, width/4*3-(padding), height-(padding*2), padding, roundedRadius);
+    screen.render(padding, (height/6), width/4*3-(padding), height/6*5-(padding), padding, roundedRadius);
 }
 
 function changeColor() {

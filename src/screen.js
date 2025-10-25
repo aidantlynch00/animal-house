@@ -28,6 +28,19 @@ class HouseScreen extends Screen {
         let renderX = x;
         let renderY = y;
         let count = 0;
+
+        //Roledex
+        stroke(255);
+        fill(20);
+        rect(renderX, renderY, renderWidth, renderHeight, roundedRadius);
+        renderX += renderWidth;
+
+        //Door
+        stroke(255);
+        fill("tan");
+        rect(renderX, renderY, renderWidth, renderHeight, roundedRadius);
+        renderX += renderWidth;
+
         for (let animal of state.deck) {
             //set boundaries
             if(renderX >= width) {
