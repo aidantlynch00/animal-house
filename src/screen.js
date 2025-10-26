@@ -123,7 +123,13 @@ class TextScreen extends Screen {
 
 }
 
-//Displays turns left, current cuteness, and current cash
+/*
+    ECONOMY SCREEN
+    Displays game economy
+        1. Turns left (state.turnsLeft)
+        2. Cuteness (out of CUTE_MAX)
+        3. Cash (out of CASH_MAX)
+*/
 class EconomyScreen extends Screen {
     constructor(state) {
         super(state);
@@ -134,44 +140,45 @@ class EconomyScreen extends Screen {
     }
 
     renderEconomy(x, y, width, height, padding, roundedRadius) {
-        let renderHeight = height/3;
-        let renderWidth = width/4;
+        
+        let renderHeight = height/3 - padding;
+        let labelWidth = width/3 - padding;
+        let infoWidth = width/3*2 - padding*2;
 
-        //Turns
+        //X values
+        let labelX = x + padding;
+        let infoX = labelX + labelWidth + padding;
+
+        //Y values
+        let oneY = y + padding;
+        let twoY = oneY + renderHeight + padding;
+        let threeY = twoY + renderHeight + padding;
+
+        //Grid Layout
         stroke(255);
         fill(0);
-        rect(x+padding, y+padding, renderWidth, renderHeight-(padding), roundedRadius);
-        rect(x+padding*2+renderWidth, y+padding, renderWidth*3-padding*3, renderHeight-(padding), roundedRadius);
-        noStroke();
-        fill(255);
-        text("Turns", x+padding+5, y+padding+20);
-        text(`${state.turnsLeft}`, x+padding*2+renderWidth+5, y+padding+20);
+        rect(labelX, oneY, labelWidth, renderHeight, roundedRadius); //Turns Label
+        rect(infoX, oneY, infoWidth, renderHeight, roundedRadius); //Turns Info
+        rect(labelX, twoY, labelWidth, renderHeight, roundedRadius); //Cute Label
+        rect(infoX, twoY, infoWidth, renderHeight, roundedRadius); //Cute Info
+        rect(labelX, threeY, labelWidth, renderHeight, roundedRadius); //Cash Label
+        rect(infoX, threeY, infoWidth, renderHeight, roundedRadius); //Cash Info
 
-        //Cuteness
-        stroke(255);
-        fill(0);
-        rect(x+padding, y+renderHeight+padding, renderWidth, renderHeight-(padding), roundedRadius);
-        rect(x+padding*2+renderWidth, y+renderHeight+padding, renderWidth*3-padding*3, renderHeight-(padding), roundedRadius);
+        //Text Info
+        let textSize = 20;
+        let textMargin = 10;
         noStroke();
         fill(255);
-        text("Cuteness", x+padding+5, y+renderHeight+padding+20);
-        text(`${state.cuteness} / ${CUTE_MAX}`, x+padding*2+renderWidth+5, y+renderHeight+padding+20);
-
-        //Cash
-        stroke(255);
-        fill(0);
-        rect(x+padding, y+renderHeight*2+(padding), renderWidth, renderHeight-padding, roundedRadius);
-        rect(x+padding*2+renderWidth, y+renderHeight*2+(padding), renderWidth*3-padding*3, renderHeight-padding, roundedRadius);
-        noStroke();
-        fill(255);
-        text("Cash", x+padding+5, y+renderHeight*2+padding+20);
-        text(`${state.cash} / ${CASH_MAX}`, x+padding*2+renderWidth+5, y+renderHeight*2+padding+20);
+        text("Turns", labelX + textMargin, oneY + textSize); //Turns Label
+        text(`${state.turnsLeft}`, infoX + textMargin, oneY + textSize); //Turns Info
+        text("Cuteness", labelX + textMargin, twoY + textSize); //Cute Label
+        text(`${state.cuteness} / ${CUTE_MAX}`, infoX + textMargin, twoY + textSize); //Cute Info
+        text("Cash", labelX + textMargin, threeY + textSize); //Cash Label
+        text(`${state.cash} / ${CASH_MAX}`, infoX + textMargin, threeY + textSize); //Cash Info
         
     }
 
-    handleAction(action) {
-
-    }
+    handleAction(action) {}
 
 }
 

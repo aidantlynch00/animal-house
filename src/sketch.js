@@ -5,7 +5,8 @@ let screens = {
     "house": new HouseScreen(state)
 }
 let infoScreens = {
-    "economy": new EconomyScreen(state)
+    "economy": new EconomyScreen(state),
+    "conditions": new ConditionsScreen(state),
 }
 
 let currentScreen = "house";
@@ -72,6 +73,7 @@ function draw() {
     screen.render(padding, (height/6), width/4*3-(padding), height/6*5-(padding), padding, roundedRadius);
 
     infoScreens["economy"].render(width/4*3+padding, height/3*2, width/4-(padding*2), height/3-(padding*1.5), padding/2, roundedRadius);
+    infoScreens["conditions"].render(width/4*3+padding, height/3*1.5+padding, width/4-(padding*2), height/3*.5-(padding*2), padding/2, roundedRadius);
 }
 
 function changeColor() {
