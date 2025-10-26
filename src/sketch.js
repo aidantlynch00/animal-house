@@ -4,17 +4,21 @@ let state = new GameState();
 let screens = {
     "house": new HouseScreen(state)
 }
+let infoScreens = {
+    "economy": new EconomyScreen(state)
+}
 
 let currentScreen = "house";
 
 function setup() {
     let canvas = document.getElementById("game");
-    let width = window.innerWidth-50;
+    let width = window.innerWidth-100;
     let height = window.innerHeight;
     createCanvas(width, height, canvas);
 }
 
 function draw() {
+    shuffle(state.gameDeck);
     background(0);
 
     //Title
@@ -52,22 +56,22 @@ function draw() {
     stroke(255);
     fill(0);
     rect(width/4*3+padding, height/3*2, width/4-(padding*2), height/3-(padding), roundedRadius);
-    fill(255);
-    stroke(0);
-    text("economy", width/4*3+padding+10, height/3*2+30);
-    text(`turns: ${state.turnsLeft}`, width/4*3+padding+10, height/3*2+50);
-    text(`Cuteness: ${state.cuteness} / ${CUTE_MAX}`, width/4*3+padding+10, height/3*2+80);
-    text(`Cash: ${state.cash} / ${CASH_MAX}`, width/4*3+padding+10, height/3*2+110);
 
     //buttons
     let button = createButton("Open Door");
-    button.position(window.innerWidth-50, 50);
-    button.mousePressed(addAnimal);
+    button.position(window.innerWidth-75, 50);
+    button.mousePressed(openDoor);
+    
+    let startButton = createButton("Start Round");
+    startButton.position(window.innerWidth-50, 100);
+    startButton.mousePressed(startRound);
 
-    //To-do buttons: settings, up, left, right, down, select
+    //To-do buttons: settings, up, left, right, down, select, end round
 
     let screen = screens[currentScreen];
     screen.render(padding, (height/6), width/4*3-(padding), height/6*5-(padding), padding, roundedRadius);
+
+    infoScreens["economy"].render(width/4*3+padding, height/3*2, width/4-(padding*2), height/3-(padding*1.5), padding/2, roundedRadius);
 }
 
 function changeColor() {
@@ -75,5 +79,21 @@ function changeColor() {
 }
 
 function addAnimal() {
-    state.deck.push(new Turtle());
+    let invitee = state.gameDeck.pop();
+    // let invitee = random(state.gameDeck);
+    console.log(invitee);
+    state.party.push(invitee);
+    console.log(state.party);
+    console.log(state.gameDeck);
+    console.log(state.deck);
 }
+
+// function shuffleDeck(array){
+//     console.log("shuffling");
+//     for (var i = this.array.length()-1; i > 0; i--) {
+//         var num = Math.floor(Math.random() * (i+1));
+//         var temp = array[i];
+//         array[i] = array[num];
+//         array[num] = temp;
+//     }
+// }
