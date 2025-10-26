@@ -47,8 +47,10 @@ class HouseScreen extends Screen {
         rect(renderX, renderY, renderWidth, renderHeight, roundedRadius);
         renderX += renderWidth;
 
+
         if(state.party.length > 0){
-            for (let animal of state.party) {
+            for(var i = state.party.length-1; i >= 0; i--){
+                let animal = state.party[i];
             //set boundaries
             if(renderX >= width) {
                 renderX = x;
@@ -173,7 +175,13 @@ class EconomyScreen extends Screen {
 
 }
 
-//Displays how many stars you need to win, and how much wildness is currently activated. (3 to lose)
+/*
+    CONDITIONS SCREEN
+    Displays key game information for the round
+        1. How many stars you need/have (4)
+        2. How many wild charges you have/can have in total (3)
+        3. Abilities and available actions
+*/
 class ConditionsScreen extends Screen {
     constructor(state) {
         super(state);
@@ -184,23 +192,43 @@ class ConditionsScreen extends Screen {
     }
 
     renderConditions(x, y, width, height, padding, roundedRadius) {
-        // let renderHeight = height/2;
-        // let renderWidth = width;
 
-        // //Stars
-        // stroke(255);
-        // fill(0);
-        // rect(x+padding, y+padding, renderWidth, renderHeight-(padding), roundedRadius);
-
-        // //Wildness
-        // stroke(255);
-        // fill(0);
-        // rect(x+padding, y+renderHeight+padding, renderWidth, renderHeight-(padding), roundedRadius);
+        let renderWidth = width/2 - padding*1.5;
+        let renderHeight = height - padding*2;
+        let renderY = y + padding;
         
+        //Side One
+        let sideOneX = x + padding;
+        let sideOneHeight = renderHeight/2 - padding/2;
+        let boxTwoY = y + sideOneHeight + padding*2;
+
+        //Side Two
+        let sideTwoX = sideOneX + renderWidth + padding;
+
+        //Grid Layout
+        stroke(255);
+        fill(0);
+        rect(sideOneX, renderY, renderWidth, sideOneHeight, roundedRadius); //Side One Box One
+        rect(sideOneX, boxTwoY, renderWidth, sideOneHeight, roundedRadius); //Side One Box Two
+        rect(sideTwoX, renderY, renderWidth, renderHeight, roundedRadius); //Side Two
+
+        /* 
+            TODO: Showcase Information 
+            1. Stars - 4 stars, same size, centered in Side One Box One
+                a. state.stars
+                b. DIM: if they are not used
+                c. BRIGHT: if there are stars in the party
+            2. Wild - 3 X's, same size, centered in Side One Box Two
+                a. state.wild
+                b. DIM: if they are not used
+                c. BRIGHT: for every wild character that isn't canceled out
+            3. Abilities - show a list of abilities that haven't been used yet
+                a. They will go away once used
+                b. Maybe shows if there are still actions left
+        */
+
     }
 
-    handleAction(action) {
-
-    }
+    handleAction(action) {}
 
 }
